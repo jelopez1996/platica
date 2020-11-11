@@ -1,0 +1,26 @@
+# Mac OS X
+*.DS_Store
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+Platica.xcworkspace
+xcuserdata/
+Pods
+
+# Generated files
+*.o
+*.pyc
+
+
+
+
+# Backup files
+*~.nib
+\#*#
+.#*
+*.swp
+*.un~
