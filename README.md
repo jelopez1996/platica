@@ -1,5 +1,5 @@
 # Platica
-Simple chat app that allows users to create conversations with each other via their email addresses. 
+Conversations made easier to have with this application
 
 
 # Technologies Used
