@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,7 +31,8 @@
 		20226B53255B17D70005BDE4 /* ConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20226B49255B17D70005BDE4 /* ConversationCell.xib */; };
 		20226B54255B17D70005BDE4 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20226B4A255B17D70005BDE4 /* MessageCell.swift */; };
 		20226B55255B17D70005BDE4 /* NewWatcherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20226B4B255B17D70005BDE4 /* NewWatcherCell.xib */; };
-		20226BB7255B1E5C0005BDE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20226BB6255B1E5C0005BDE4 /* Assets.xcassets */; };
+		204B9C22255B852600596C60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 204B9C21255B852600596C60 /* Assets.xcassets */; };
+		206FACE8255CB13C00F0BF77 /* photoCameraPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FACE7255CB13C00F0BF77 /* photoCameraPermissions.swift */; };
 		71391B4F2B1B32CE8BC14FEA /* Pods_Platica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBF887F84F314C85C693B57 /* Pods_Platica.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +63,8 @@
 		20226B49255B17D70005BDE4 /* ConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationCell.xib; sourceTree = "<group>"; };
 		20226B4A255B17D70005BDE4 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		20226B4B255B17D70005BDE4 /* NewWatcherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewWatcherCell.xib; sourceTree = "<group>"; };
-		20226BB6255B1E5C0005BDE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../Pl-tica/Plática/Assets.xcassets"; sourceTree = "<group>"; };
+		204B9C21255B852600596C60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		206FACE7255CB13C00F0BF77 /* photoCameraPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoCameraPermissions.swift; sourceTree = "<group>"; };
 		2C617A50E47BDCC4327B9123 /* Pods-Platica.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Platica.debug.xcconfig"; path = "Target Support Files/Pods-Platica/Pods-Platica.debug.xcconfig"; sourceTree = "<group>"; };
 		3F06CE49D52B893EAF4C397E /* Pods-Platica.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Platica.release.xcconfig"; path = "Target Support Files/Pods-Platica/Pods-Platica.release.xcconfig"; sourceTree = "<group>"; };
 		DEBF887F84F314C85C693B57 /* Pods_Platica.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Platica.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,9 +105,9 @@
 			children = (
 				20226B1E255B179D0005BDE4 /* Fonts */,
 				20226B21255B179D0005BDE4 /* Support Files */,
-				20226B1B255B15F70005BDE4 /* GoogleService-Info.plist */,
 				20226AF1255B12570005BDE4 /* AppDelegate.swift */,
-				20226BB6255B1E5C0005BDE4 /* Assets.xcassets */,
+				204B9C21255B852600596C60 /* Assets.xcassets */,
+				20226B1B255B15F70005BDE4 /* GoogleService-Info.plist */,
 				20226AF3255B12570005BDE4 /* SceneDelegate.swift */,
 				20226B42255B17D70005BDE4 /* Views */,
 				20226B27255B17B20005BDE4 /* Models */,
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				20226B22255B179D0005BDE4 /* Helper.swift */,
+				206FACE7255CB13C00F0BF77 /* photoCameraPermissions.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -225,7 +228,7 @@
 				};
 			};
 			buildConfigurationList = 20226AE9255B12560005BDE4 /* Build configuration list for PBXProject "Platica" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -251,10 +254,10 @@
 				20226B23255B179D0005BDE4 /* SanMarinoBeach.ttf in Resources */,
 				20226AFE255B12590005BDE4 /* LaunchScreen.storyboard in Resources */,
 				20226B55255B17D70005BDE4 /* NewWatcherCell.xib in Resources */,
-				20226BB7255B1E5C0005BDE4 /* Assets.xcassets in Resources */,
 				20226B1C255B15F70005BDE4 /* GoogleService-Info.plist in Resources */,
 				20226B51255B17D70005BDE4 /* Main.storyboard in Resources */,
 				20226B24255B179D0005BDE4 /* Neoneon.otf in Resources */,
+				204B9C22255B852600596C60 /* Assets.xcassets in Resources */,
 				20226B50255B17D70005BDE4 /* MessageCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +324,7 @@
 				20226B3D255B17BB0005BDE4 /* RegisterViewController.swift in Sources */,
 				20226B25255B179D0005BDE4 /* Helper.swift in Sources */,
 				20226B4E255B17D70005BDE4 /* ConversationCell.swift in Sources */,
+				206FACE8255CB13C00F0BF77 /* photoCameraPermissions.swift in Sources */,
 				20226B39255B17BB0005BDE4 /* NewChatViewController.swift in Sources */,
 				20226B52255B17D70005BDE4 /* NewWatcherCell.swift in Sources */,
 				20226B3A255B17BB0005BDE4 /* LoginViewController.swift in Sources */,
@@ -400,7 +404,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -455,7 +459,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -474,6 +478,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KLSREW2B4X;
 				INFOPLIST_FILE = Platica/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -481,7 +486,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jesusLopez.Platica;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -494,6 +499,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KLSREW2B4X;
 				INFOPLIST_FILE = Platica/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -501,7 +507,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jesusLopez.Platica;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

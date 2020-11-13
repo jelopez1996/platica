@@ -21,6 +21,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var completeButton: UIButton!
     var textFields: [UITextField]?
+    let photoCameraPermission = PCPermissions()
 
     var db: Firestore!
     
@@ -30,6 +31,8 @@ class RegisterViewController: UIViewController {
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
+        
+        self.addChild(photoCameraPermission)
 
 
         firstName.delegate = self
@@ -58,14 +61,20 @@ class RegisterViewController: UIViewController {
         completeButton.layer.shadowColor = UIColor.black.cgColor
         completeButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         completeButton.layer.shadowOpacity = K.shadowOpacity
+        
+        // Crop image for profile
+        profilePic.layer.borderWidth = 1.0
+        profilePic.layer.masksToBounds = false
+        profilePic.layer.borderColor = UIColor.black.cgColor
+        profilePic.layer.cornerRadius = profilePic.frame.size.height / 2
+        profilePic.clipsToBounds = true
        
     }
 
 
 
     @IBAction func imagePressed(_ sender: UIButton) {
-        uploadButton.isSelected = true
-        showImagePickerActionSheet()
+        photoCameraPermission.getImage(image: profilePic)
     }
 
     @IBAction func completePressed(_ sender: Any) {
@@ -95,115 +104,14 @@ class RegisterViewController: UIViewController {
 
 
 }
-extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func checkPhotoLibraryPermissions() {
-        if #available(iOS 14, *) {
-            switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
-                case .denied:
-                    print("Denied")
-                case .authorized:
-                    print("Authorized")
-                case .notDetermined:
-                    print("Not determined")
-                case .restricted:
-                    print("restricted")
-                case .limited:
-                    print("limited")
-                @unknown default:
-                    print("Unkown")
-            }
-        } else {
-            switch PHPhotoLibrary.authorizationStatus() {
-            case .denied:
-                print("Denied")
-            
-            case .authorized:
-                print("Authorized")
-            
-            case .notDetermined:
-                print("Not determined")
-            case .restricted:
-                print("restricted")
-            case .limited:
-                print("limited")
-            @unknown default:
-                print("Unkown")
-            }
-        }
-        
-    }
-    
-    func checkCameraPermissions(){
-        switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
-            case .denied:
-                let alert = UIAlertController(title: "Unable to access the Camera", message: "To enable access, go to Settings > Privacy > Camera and turn on Camera access for this app.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-                present(alert, animated: true, completion: nil)
-            case .restricted:
-                print("Restricted, device owner must approve")
-            case .authorized:
-                print("Authorized, proceed")
-            case .notDetermined:
-                AVCaptureDevice.requestAccess(for: .video) { success in
-                    if success {
-                        print("Permission granted, proceed")
-                    } else {
-                        print("Permission denied")
-                    }
-                }
-            default:
-                print("Default case passed")
-            }
-    }
-    
-    func showImagePickerActionSheet() {
-        checkPhotoLibraryPermissions()
-        let photoLibraryAction = UIAlertAction(title: "Choose from library", style: UIAlertAction.Style.default) { (alertAction) in
-            self.showImagePicker(sourceType: .photoLibrary)
-        }
-        let cameraAction = UIAlertAction(title: "Take a photo", style: UIAlertAction.Style.default) { (alertAction) in
-            self.showImagePicker(sourceType: .camera)
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-        let alert = UIAlertController(title: "Choose your image", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(photoLibraryAction)
-        alert.addAction(cameraAction)
-        alert.addAction(cancel)
-        present(alert, animated: true) {
-            self.uploadButton.isSelected = false
-        }
-    }
-    func showImagePicker(sourceType: UIImagePickerController.SourceType) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        imagePickerController.sourceType = sourceType
-        present(imagePickerController, animated: true, completion: nil)
 
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            profilePic.image = editedImage
-            profilePic.layer.cornerRadius = profilePic.frame.size.height / 2
-            profilePic.layer.borderWidth = 1
-            profilePic.layer.masksToBounds = false
-            profilePic.layer.borderColor = UIColor.black.cgColor
-            profilePic.clipsToBounds = true
-
-        }
-        dismiss(animated: true, completion: nil)
-    }
-
-}
 
 extension RegisterViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if(textField.tag == 2) {
-            textField.layer.borderColor = CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.0)
+            textField.textColor = UIColor.black
+            textField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -220,8 +128,8 @@ extension RegisterViewController: UITextFieldDelegate {
 
         if(textField.tag == 2) {
             if(!Helper.isValidEmail(email: textField.text!)) {
-                textField.layer.borderColor = CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-                textField.layer.borderWidth = 2.0
+                textField.textColor = UIColor.red
+                textField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
                 completeButton.isEnabled = false
             }
         }

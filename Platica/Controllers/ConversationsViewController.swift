@@ -48,6 +48,8 @@ class ConversationsViewController: UIViewController {
         tableView.register(UINib(nibName: K.Conversations.cellNibName, bundle: nil), forCellReuseIdentifier: K.Conversations.cellIdentifier)
         tableView.isSkeletonable = true
         tableView.showAnimatedSkeleton(usingColor: .wetAsphalt, transition: .crossDissolve(0.25))
+
+        
         
         
     }
@@ -55,7 +57,8 @@ class ConversationsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadContacts()
+        tableView.reloadData()
+        loadConversations()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,7 +85,7 @@ class ConversationsViewController: UIViewController {
         performSegue(withIdentifier: K.conversationsToNewConversation, sender: self)
     }
     
-    func loadContacts(){
+    func loadConversations(){
         listenerRef = db.collection(K.FStore.conversationsCollectionName)
             .whereField(K.Conversations.watchersField, arrayContains: userEmail)
             .addSnapshotListener { (querySnapshot, error) in
@@ -101,8 +104,8 @@ class ConversationsViewController: UIViewController {
                             }
                         }
                         DispatchQueue.main.async {
-                            self.view.stopSkeletonAnimation()
-                            self.view.hideSkeleton( transition: .crossDissolve(0.5))
+                            self.tableView.stopSkeletonAnimation()
+                            self.tableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
                         }
                     }
                 }
@@ -112,15 +115,28 @@ class ConversationsViewController: UIViewController {
     }
     
     func deleteConversation(_ indexPath: IndexPath){
-        db.collection(K.FStore.conversationsCollectionName).document(conversations[indexPath.item].chatLogID).delete()
+        db.collection(K.FStore.conversationsCollectionName).document(conversations[indexPath.item].chatLogID).delete { (error) in
+            if((error) != nil) {
+                print(error?.localizedDescription)
+            } else {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     func removeFromConversation(_ indexPath: IndexPath){
+        tableView.showSkeleton()
         var watchers = conversations[indexPath.item].watchers
         watchers.removeAll { (watcher) -> Bool in
             return watcher == userEmail
         }
-        db.collection(K.FStore.conversationsCollectionName).document(conversations[indexPath.item].chatLogID).updateData(["watchers" : watchers])
+        db.collection(K.FStore.conversationsCollectionName).document(conversations[indexPath.item].chatLogID).updateData(["watchers" : watchers]) { (error) in
+            if((error) != nil) {
+                print(error?.localizedDescription)
+            } else {
+                self.tableView.reloadData()
+            }
+        }
         
     }
 }
@@ -131,7 +147,7 @@ extension ConversationsViewController: SkeletonTableViewDataSource {
         return 1
     }
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 5
     }
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
         return K.Conversations.cellIdentifier
@@ -150,8 +166,9 @@ extension ConversationsViewController: SkeletonTableViewDataSource {
             } else {
                 cell.conversationImage.image = UIImage(systemName: "person.3.fill")
             }
-            
-            cell.conversationInfo.text = conversation.watchers.joined(separator: ",")
+            var newWatchers = conversation.watchers
+            newWatchers.removeAll(where: { $0 == userEmail })
+            cell.conversationInfo.text = newWatchers.joined(separator: ",")
         }
         return cell
     }
