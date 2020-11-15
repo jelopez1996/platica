@@ -38,6 +38,13 @@ struct K {
         static let cellNibName = "ConversationCell"
         static let watchersField = "watchers"
         static let ownerField = "owner"
+        static let statusField = "status"
+        
+        struct Statuses {
+            static let accepted = "accepted"
+            static let rejected = "rejected"
+            static let requested = "requested"
+        }
     }
     
     struct Messages {

@@ -12,6 +12,7 @@ class ConversationsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newConversationButton: UIButton!
+    @IBOutlet weak var topBarView: UIView!
     
     
     var conversation: Conversation!
@@ -26,7 +27,13 @@ class ConversationsViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         
-        //
+        // Corner the radius of the top bar
+        topBarView.layer.cornerRadius = K.cornerRadius
+        topBarView.layer.shadowColor = UIColor.black.cgColor
+        topBarView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        topBarView.layer.shadowOpacity = 0.5
+        
+        // Corner the radius of the tabelview
         tableView.layer.cornerRadius = K.cornerRadius
         
         // Add a shadow to the newConversationButton
@@ -53,6 +60,11 @@ class ConversationsViewController: UIViewController {
         
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
 
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,6 +76,7 @@ class ConversationsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.conversationsToChatSegue {
             let ChatVC  = segue.destination as! ChatViewController
+            print(conversation!)
             ChatVC.conversation = conversation
             
         }
@@ -117,7 +130,7 @@ class ConversationsViewController: UIViewController {
     func deleteConversation(_ indexPath: IndexPath){
         db.collection(K.FStore.conversationsCollectionName).document(conversations[indexPath.item].chatLogID).delete { (error) in
             if((error) != nil) {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
             } else {
                 self.tableView.reloadData()
             }
@@ -132,7 +145,7 @@ class ConversationsViewController: UIViewController {
         }
         db.collection(K.FStore.conversationsCollectionName).document(conversations[indexPath.item].chatLogID).updateData(["watchers" : watchers]) { (error) in
             if((error) != nil) {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
             } else {
                 self.tableView.reloadData()
             }

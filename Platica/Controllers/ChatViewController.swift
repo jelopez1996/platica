@@ -19,9 +19,12 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.title = conversation.watchers.joined(separator: ",")
+
         
-        let newBackButton = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left.circle.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.customFunc))
-        navigationItem.leftBarButtonItem = newBackButton
+//        let newBackButton = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left.circle.fill"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.customFunc))
+//        navigationItem.leftBarButtonItem = newBackButton
         
         //FireBase setup
         let settings = FirestoreSettings()
@@ -31,29 +34,28 @@ class ChatViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: K.Messages.cellNibName, bundle: nil), forCellReuseIdentifier: K.Messages.cellIdentifier)
         
-        self.title = conversation.watchers.joined(separator: ",")
-        
         loadMessages()
+        
 
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.openActivity), name: UIApplication.willResignActiveNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.openActivity), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
-    @objc private func openActivity(){
-        view.endEditing(true)
-    }
+//    @objc private func openActivity(){
+//        view.endEditing(true)
+//    }
     
-    @objc private func customFunc(){
-        let viewControllers = self.navigationController?.viewControllers
-        for controller in viewControllers! {
-            if controller is ConversationsViewController {
-                self.navigationController?.popToViewController(controller, animated: true)
-            }
-        }
+//    @objc private func customFunc(){
+//        let viewControllers = self.navigationController?.viewControllers
+//        for controller in viewControllers! {
+//            if controller is ConversationsViewController {
+//                self.navigationController?.popToViewController(controller, animated: true)
+//            }
+//        }
         
-    }
+//    }
     
     
     func loadMessages(){
@@ -74,6 +76,7 @@ class ChatViewController: UIViewController {
                             if let messageSender = data[K.Messages.senderField] as? String, let messageBody = data[K.Messages.bodyField] as? String, let messageWatchers = data[K.Messages.watchersField] as? [String] {
                                 let message = Message(sender: messageSender, body: messageBody, watchers: messageWatchers)
                                 self.messages.append(message)
+                                print("Messages loaded")
                                 DispatchQueue.main.async {
                                     self.tableView.reloadData()
                                     let indexPath = IndexPath(row: self.messages.count - 1, section: 0)

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2006BE9A255F629600453A8F /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006BE99255F629600453A8F /* PageViewController.swift */; };
+		2006BE9D256195C800453A8F /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006BE9C256195C800453A8F /* ContactsViewController.swift */; };
 		20226AF2255B12570005BDE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20226AF1255B12570005BDE4 /* AppDelegate.swift */; };
 		20226AF4255B12570005BDE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20226AF3255B12570005BDE4 /* SceneDelegate.swift */; };
 		20226AFE255B12590005BDE4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20226AFC255B12590005BDE4 /* LaunchScreen.storyboard */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2006BE99255F629600453A8F /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		2006BE9C256195C800453A8F /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		20226AEE255B12570005BDE4 /* Platica.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Platica.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20226AF1255B12570005BDE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20226AF3255B12570005BDE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,9 +157,11 @@
 				20226B31255B17BB0005BDE4 /* WelcomeViewController.swift */,
 				20226B33255B17BB0005BDE4 /* LoginViewController.swift */,
 				20226B36255B17BB0005BDE4 /* RegisterViewController.swift */,
+				20226B34255B17BB0005BDE4 /* ConversationsViewController.swift */,
 				20226B30255B17BB0005BDE4 /* ChatViewController.swift */,
 				20226B32255B17BB0005BDE4 /* NewChatViewController.swift */,
-				20226B34255B17BB0005BDE4 /* ConversationsViewController.swift */,
+				2006BE99255F629600453A8F /* PageViewController.swift */,
+				2006BE9C256195C800453A8F /* ContactsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 				20226B38255B17BB0005BDE4 /* WelcomeViewController.swift in Sources */,
 				20226B2D255B17B20005BDE4 /* NewWatcher.swift in Sources */,
 				20226B37255B17BB0005BDE4 /* ChatViewController.swift in Sources */,
+				2006BE9D256195C800453A8F /* ContactsViewController.swift in Sources */,
 				20226AF2255B12570005BDE4 /* AppDelegate.swift in Sources */,
 				20226B3B255B17BB0005BDE4 /* ConversationsViewController.swift in Sources */,
 				20226B40255B17C40005BDE4 /* K.swift in Sources */,
@@ -326,6 +333,7 @@
 				20226B4E255B17D70005BDE4 /* ConversationCell.swift in Sources */,
 				206FACE8255CB13C00F0BF77 /* photoCameraPermissions.swift in Sources */,
 				20226B39255B17BB0005BDE4 /* NewChatViewController.swift in Sources */,
+				2006BE9A255F629600453A8F /* PageViewController.swift in Sources */,
 				20226B52255B17D70005BDE4 /* NewWatcherCell.swift in Sources */,
 				20226B3A255B17BB0005BDE4 /* LoginViewController.swift in Sources */,
 			);

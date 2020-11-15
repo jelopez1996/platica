@@ -32,6 +32,7 @@ class NewChatViewController: UIViewController {
 
     }
     
+    
     @IBAction func addWatcherRow(_ sender: Any) {
         let newWatcher = NewWatcher(email: "")
         newWatchers.append(newWatcher)
@@ -72,7 +73,8 @@ class NewChatViewController: UIViewController {
         
             let chatLogID = db.collection(K.FStore.conversationsCollectionName).addDocument(data: [
                 K.Conversations.watchersField: finalWatchers,
-                K.Conversations.ownerField: user
+                K.Conversations.ownerField: user,
+                K.Conversations.statusField: K.Conversations.Statuses.requested
             ]).documentID
             conversation = Conversation(owner: user, watchers: finalWatchers, chatLogID: chatLogID)
             

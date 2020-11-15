@@ -37,8 +37,6 @@ class LoginViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                     return
                 } else {
-                    // Navigate to Chatview Controller
-                    self.performSegue(withIdentifier: K.loginToConversationsSegue, sender: self)
                 }
             }
         }

@@ -78,12 +78,14 @@ class RegisterViewController: UIViewController {
     }
 
     @IBAction func completePressed(_ sender: Any) {
-
+        completeButton.isEnabled = false
         Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (data, error) in
             if((error) != nil) {
                 let alert = UIAlertController(title: "Error creating your account", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true) {
+                    self.completeButton.isEnabled = true
+                }
             } else {
                 let imageData = self.profilePic.image!.jpegData(compressionQuality: 0.75)
                 if let userId = Auth.auth().currentUser?.uid {
